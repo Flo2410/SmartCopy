@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Folder Compare</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+  <body>
+    <div class="contaienr m-2">
+
+      <div class="row">
+        <div class="col">
+          <form>
+            <div class="form-group">
+              <label for="path_src">Check in :: Source</label>
+              <div class="input-group choose-file" id="path_src">
+                <input type="text" class="form-control path-file" id="path_src_file" placeholder="" value="Choose file" disabled>
+                <div class="input-group-append">
+                  <div class="input-group-text">Browse</div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <form>
+            <div class="form-group">
+              <label for="path_search">for maches with :: Search</label>
+              <div class="input-group choose-file" id="path_search">
+                <input type="text" class="form-control path-file" id="path_search_file" placeholder="" value="Choose file" disabled>
+                <div class="input-group-append">
+                  <div class="input-group-text">Browse</div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <form>
+            <div class="form-group">
+              <label for="path_target">and copy them there</label>
+              <div class="input-group choose-file" id="path_target">
+                <input type="text" class="form-control path-file" id="path_target_file" placeholder="" value="Choose file" disabled>
+                <div class="input-group-append">
+                  <div class="input-group-text">Browse</div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row justify-content-center mb-3">
+
+        <div class="col-auto">
+          <select class="custom-select" id="select_maching" aria-label="Example select with button addon">
+            <option value="true" selected>copy maching files</option>
+            <option value="false">copy non maching files</option>
+          </select>
+        </div>
+
+        <div class="col-auto">
+          <select class="custom-select" id="select_copy" aria-label="Example select with button addon">
+            <option value="true" selected>from source</option>
+            <option value="false">from search</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="row ">
+        <div class="col">
+          <button id="check" class="btn btn-outline-success btn-lg  btn-block">Start</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- <input id="path_src" type="file" style="display: none" /> -->
+
+    <script>
+      window.$ = window.jQuery = require('jquery');
+      require('popper.js');
+      require('bootstrap');
+    </script>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

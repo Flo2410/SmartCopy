@@ -1,0 +1,43 @@
+body, html {
+  overflow-x: hidden;
+  -ms-overflow-style: scrollbar;
+  -webkit-app-region:drag;
+  background-color: #282c34;
+  color: #828997;
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="text"],
+button,
+textarea,
+select {
+	-webkit-app-region: no-drag;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    -webkit-user-select: none;
+}
+
+.input-group-text {
+  background-color: #282c34;
+  color: #828997;
+  border-color: rgba(101, 101, 101, 0.4);
+}
+
+.custom-select {
+  background-color: #282c34;
+  color: #828997;
+  border-color: rgba(101, 101, 101, 0.4);
+}
+
+.choose-file {
+  cursor: pointer !important;
+}
+
+.path-file {
+  cursor: pointer !important;
+  background-color: #21252b !important;
+  border-color: rgba(101, 101, 101, 0.4)
+}
