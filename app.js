@@ -27,13 +27,13 @@ function createWindow () {
   win = new BrowserWindow({
     titleBarStyle: "default",
     useContentSize: true,
-    width: 300,
-    height: 200,
+    width: 360,
+    height: 224,
     // minWidth: 385,
     // minHeight: 380,
     backgroundColor: "#282c34",
     fullscreenable: false,
-    resizable: false,
+    resizable: true,
     maximizable: false,
     webPreferences: {
       nodeIntegration: true
@@ -96,7 +96,7 @@ exports.openFolderCompare = () => {
 
 exports.openMainWindow = () => {
   win.loadFile('html/index.html');
-  win.setContentSize(300, 200, true);
+  win.setContentSize(360, 224, true);
   // win.setResizable(false);
 }
 

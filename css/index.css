@@ -1,0 +1,44 @@
+/* Bootstrap overwrite */
+
+.btn {
+  font-size: 1.5rem;
+  color: #3a95f7;
+}
+
+.btn-outline-primary {
+  border-color: #3a95f7;
+}
+
+.btn-outline-primary:hover {
+  color: #d5d5d5;
+  border-color: #3a95f7;
+  background-color: #3a95f7;
+}
+
+.fa-lg {
+  vertical-align: -0.075em;
+}
+
+/* custom bootstrap */
+.btn-sq-lg {
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.btn-sq {
+  width: 100px !important;
+  height: 100px !important;
+  font-size: 10px;
+}
+
+.btn-sq-sm {
+  width: 50px !important;
+  height: 50px !important;
+  font-size: 10px;
+}
+
+.btn-sq-xs {
+  width: 25px !important;
+  height: 25px !important;
+  padding:2px;
+}
