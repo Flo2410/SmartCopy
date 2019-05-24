@@ -33,3 +33,7 @@ $("#check").click(() => {
   const copy = $("#select_copy").val();
   mainProcess.check(JSON.parse(maching), JSON.parse(copy));
 });
+
+$("#btn_back").click(() => {
+  mainProcess.openMainWindow();
+});

@@ -20,6 +20,9 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-user-select: none;
 }
 
+
+/* overwrites */
+
 .input-group-text {
   background-color: #282c34;
   color: #828997;
@@ -32,6 +35,12 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(101, 101, 101, 0.4);
 }
 
+.fa-lg {
+  vertical-align: -0.075em;
+}
+
+/* custom */
+
 .choose-file {
   cursor: pointer !important;
 }
@@ -40,4 +49,13 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer !important;
   background-color: #21252b !important;
   border-color: rgba(101, 101, 101, 0.4)
+}
+
+.btn-back {
+  color: #828997;
+}
+
+.btn-back:hover {
+  color: #495057;
+  text-decoration: none;
 }

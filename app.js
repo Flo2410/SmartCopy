@@ -2,6 +2,7 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const dialog = electron.dialog;
+const ipcMain = electron.ipcMain;
 
 const fs = require('fs-extra')
 const path = require('path')
@@ -26,12 +27,13 @@ function createWindow () {
   win = new BrowserWindow({
     titleBarStyle: "default",
     useContentSize: true,
-    width: 385,
-    height: 380,
-    minWidth: 385,
-    minHeight: 380,
+    width: 300,
+    height: 200,
+    // minWidth: 385,
+    // minHeight: 380,
+    backgroundColor: "#282c34",
     fullscreenable: false,
-    resizable: true,
+    resizable: false,
     maximizable: false,
     webPreferences: {
       nodeIntegration: true
@@ -39,10 +41,9 @@ function createWindow () {
   });
 
   // and load the index.html of the app.
-  win.loadFile('index.html');
+  win.loadFile('html/index.html');
 
-  win.setResizable(false);
-  win.setMenu(null);
+  // win.setResizable(false);
 
   // Öffnen der DevTools.
   // win.webContents.openDevTools();
@@ -78,15 +79,26 @@ app.on('activate', () => {
   }
 });
 
-// app.on("browser-window-created",(e, window) => {
-//   window.setMenu(null);
-// });
+app.on("browser-window-created",(e, window) => {
+  window.setMenu(null);
+});
 
 // In dieser Datei können Sie den Rest des App-spezifischen
 // Hauptprozess-Codes einbinden. Sie können den Code auch
 // auf mehrere Dateien aufteilen und diese hier einbinden.
 
 
+exports.openFolderCompare = () => {
+  win.loadFile('html/folderCompare.html');
+  win.setContentSize(385, 380, true);
+  // win.setResizable(false);
+}
+
+exports.openMainWindow = () => {
+  win.loadFile('html/index.html');
+  win.setContentSize(300, 200, true);
+  // win.setResizable(false);
+}
 
 exports.selectDirectory = (btn_id) => {
   return new Promise((resolve, reject) => {
@@ -121,62 +133,68 @@ exports.check = (maching, copy) => {
   nonMachingFiles_src = [];
   nonMachingFiles_search = [];
 
-  fs.readdirSync(path_src).forEach((file) => {
-      files_src.push(file);
-  });
+  if(path_src && path_search && path_target){
+    fs.readdirSync(path_src).forEach((file) => {
+        files_src.push(file);
+    });
 
-  fs.readdirSync(path_search).forEach((file) => {
-    files_search.push(file);
-  });
+    fs.readdirSync(path_search).forEach((file) => {
+      files_search.push(file);
+    });
 
-  files_search.forEach((file) => {
-    if(files_src.includes(file)) maching_files.push(file);
-    else nonMachingFiles_search.push(file);
-  });
+    files_search.forEach((file) => {
+      if(files_src.includes(file)) maching_files.push(file);
+      else nonMachingFiles_search.push(file);
+    });
 
-  files_src.forEach((file) => {
-    if(!files_search.includes(file)) nonMachingFiles_src.push(file);
-  });
+    files_src.forEach((file) => {
+      if(!files_search.includes(file)) nonMachingFiles_src.push(file);
+    });
 
-  fs.ensureDir(path_target).then(() => {
-    if(maching && copy) { // copy maching files from source
-      maching_files.forEach((file) => {
-        fs.copy(path_src + "/" + file, path_target + "/" + file).catch((err) => {
-          throw err;
+    fs.ensureDir(path_target).then(() => {
+      if(maching && copy) { // copy maching files from source
+        maching_files.forEach((file) => {
+          fs.copy(path_src + "/" + file, path_target + "/" + file).catch((err) => {
+            throw err;
+          });
+          console.log("copied: " + path_src + "/" + file + " to " + path_target + "/" + file);
+
         });
-        console.log("copied: " + path_src + "/" + file + " to " + path_target + "/" + file);
+      } else if (!maching && copy) { // copy non maching files from source
+        nonMachingFiles_src.forEach((file) => {
+          fs.copy(path_src + "/" + file, path_target + "/" + file).catch((err) => {
+            throw err;
+          });
+          console.log("copied: " + path_src + "/" + file + " to " + path_target + "/" + file);
 
-      });
-    } else if (!maching && copy) { // copy non maching files from source
-      nonMachingFiles_src.forEach((file) => {
-        fs.copy(path_src + "/" + file, path_target + "/" + file).catch((err) => {
-          throw err;
         });
-        console.log("copied: " + path_src + "/" + file + " to " + path_target + "/" + file);
+      } else if (maching && !copy) { // copy maching files from search
+        maching_files.forEach((file) => {
+          fs.copy(path_search + "/" + file, path_target + "/" + file).catch((err) => {
+            throw err;
+          });
+          console.log("copied: " + path_search + "/" + file + " to " + path_target + "/" + file);
 
-      });
-    } else if (maching && !copy) { // copy maching files from search
-      maching_files.forEach((file) => {
-        fs.copy(path_search + "/" + file, path_target + "/" + file).catch((err) => {
-          throw err;
         });
-        console.log("copied: " + path_search + "/" + file + " to " + path_target + "/" + file);
 
-      });
+      } else if (!maching && !copy) { // copy non maching files from search
+        nonMachingFiles_search.forEach((file) => {
+          fs.copy(path_search + "/" + file, path_target + "/" + file).catch((err) => {
+            throw err;
+          });
+          console.log("copied: " + path_search + "/" + file + " to " + path_target + "/" + file);
 
-    } else if (!maching && !copy) { // copy non maching files from search
-      nonMachingFiles_search.forEach((file) => {
-        fs.copy(path_search + "/" + file, path_target + "/" + file).catch((err) => {
-          throw err;
         });
-        console.log("copied: " + path_search + "/" + file + " to " + path_target + "/" + file);
+      }
 
-      });
-    }
+    }).catch((err) => {
+      throw err;
+    });
+  } else {
+    console.log("no paths specified!");
+  }
 
-  }).catch((err) => {
-    throw err;
-  });
+
 
   console.log("path_src:", path_src);
   console.log("path_search:", path_search);

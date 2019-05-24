@@ -1,5 +1,5 @@
 {
-  "name": "FolderCompare",
+  "name": "SmartCopy",
   "version": "1.0.0",
   "description": "Compare two folders and copy the maching or not maching files into a third one.",
   "main": "app.js",
@@ -17,12 +17,15 @@
     "popper.js": "^1.15.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.2",
     "electron": "^5.0.1"
   },
   "build": {
-    "appId": "at.flo2410.foldercompare",
+    "appId": "at.flo2410.smartcopy",
+    "productName": "SmartCopy",
+    "copyright": "Copyright © 2019 ${author}",
     "mac": {
-      "category": "at.flo2410.foldercompare"
+      "category": "at.flo2410.smartcopy"
     }
   }
 }
