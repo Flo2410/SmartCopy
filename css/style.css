@@ -20,6 +20,11 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-user-select: none;
 }
 
+input {
+  background-color: #21252b !important;
+  border-color: rgba(101, 101, 101, 0.4) !important;
+}
+
 
 /* overwrites */
 
@@ -43,8 +48,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .path-file {
   cursor: pointer !important;
-  background-color: #21252b !important;
-  border-color: rgba(101, 101, 101, 0.4)
 }
 
 .btn-back {

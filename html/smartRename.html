@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Smart Copy :: Smart Rename</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+
+    <!-- Fontawsome -->
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/smartRename.css">
+
+  </head>
+  <body>
+    <div class="contaienr m-2">
+
+      <div class="row">
+        <div class="col">
+
+          <div class="form-group">
+            <div class="row justify-content-between">
+              <div class="col-auto">
+                <label for="path_src">Check in :: Source</label>
+              </div>
+
+              <div class="col-auto">
+                <a href="#" class="btn-back" id="btn_back">
+                  <i class="fas fa-angle-left fa-lg mr-1"></i>
+                  <span class="align-top">Back</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="input-group choose-file" id="path_src">
+              <input type="text" class="form-control path-file" id="path_src_file" placeholder="" value="Choose files" disabled>
+              <div class="input-group-append">
+                <div class="input-group-text">Browse</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+
+            <div class="form-group">
+              <label for="path_search">for maches with :: Search</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="search" placeholder="Enter search">
+              </div>
+            </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+
+            <div class="form-group">
+              <label for="path_target">and replace them with</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="replacement" placeholder="Enter replacement">
+              </div>
+            </div>
+
+        </div>
+      </div>
+
+      <div class="row justify-content-center mb-3">
+
+        <div class="col-auto">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="copy_checkbox" checked>
+            <label class="form-check-label" for="copy_checkbox">
+              Copy the renamed files into a new folder and keep the originals.
+            </label>
+          </div>
+        </div>
+
+        <!-- <div class="col-auto">
+          <select class="custom-select" id="select_maching" aria-label="Example select with button addon">
+            <option value="true" selected>copy the files</option>
+            <option value="false">rename the files</option>
+          </select>
+        </div> -->
+
+      </div>
+
+      <div class="row ">
+        <div class="col">
+          <button id="check" class="btn btn-outline-success btn-lg  btn-block">Start</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- <input id="path_src" type="file" style="display: none" /> -->
+
+    <script>
+      window.$ = window.jQuery = require('jquery');
+      require('popper.js');
+      require('bootstrap');
+    </script>
+
+    <script src="../js/smartRename.js"></script>
+  </body>
+</html>

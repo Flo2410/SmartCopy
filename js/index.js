@@ -6,3 +6,7 @@ const mainProcess = remote.require('./app');
 $("#folderCompare").click(() => {
   mainProcess.openFolderCompare();
 });
+
+$("#smartRename").click(() => {
+  mainProcess.openSmartRename();
+});

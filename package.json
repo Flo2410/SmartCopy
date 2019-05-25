@@ -1,6 +1,6 @@
 {
   "name": "SmartCopy",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Compare two folders and copy the maching or not maching files into a third one.",
   "main": "app.js",
   "scripts": {

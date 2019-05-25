@@ -33,7 +33,7 @@ function createWindow () {
     // minHeight: 380,
     backgroundColor: "#282c34",
     fullscreenable: false,
-    resizable: true,
+    resizable: false,
     maximizable: false,
     webPreferences: {
       nodeIntegration: true
@@ -94,6 +94,12 @@ exports.openFolderCompare = () => {
   // win.setResizable(false);
 }
 
+exports.openSmartRename = () => {
+  win.loadFile('html/smartRename.html');
+  win.setContentSize(385, 390, true);
+  // win.setResizable(false);
+}
+
 exports.openMainWindow = () => {
   win.loadFile('html/index.html');
   win.setContentSize(360, 224, true);
@@ -126,7 +132,26 @@ exports.selectDirectory = (btn_id) => {
   });
 }
 
-exports.check = (maching, copy) => {
+exports.selectFiles = () => {
+  return new Promise((resolve, reject) => {
+    dialog.showOpenDialog(win, {
+      properties: ['openFile', 'multiSelections']
+    }, (filenames) => {
+      if(filenames) {
+        files_src = filenames;
+        resolve(filenames);
+      } else {
+        if(files_src.length > 0) resolve(files_src);
+        else {
+          console.log("nope.");
+          reject();
+        }
+      }
+    });
+  });
+}
+
+exports.compareFolder = (maching, copy) => {
   files_src = [];
   files_search = [];
   maching_files = [];
@@ -207,4 +232,43 @@ exports.check = (maching, copy) => {
   console.log("maching_files:", maching_files);
   console.log("nonMachingFiles_src:", nonMachingFiles_src);
   console.log("nonMachingFiles_search:", nonMachingFiles_search);
+}
+
+
+exports.smartRename = (search, replacement, copy) => {
+  if(files_src.length > 0) {
+    let new_src = [];
+    const ms = new Date().toLocaleString().replace(/[-:.,]/g, "").replace(" ", "_");
+    files_src.forEach((file) => {
+      const ext = path.extname(file);
+      const filename = path.basename(file).replace(ext, "");
+      const chache_str = filename.replace(search, "");
+      const newname = replacement.replace("*", chache_str);
+
+      if(copy) {
+        const new_file = path.dirname(file) + "/renamed_" + ms + "/" + newname + ext;
+        fs.ensureDirSync(path.dirname(new_file));
+        fs.copySync(file, new_file);
+        new_src.push(file);
+
+      } else {
+        const new_file = path.dirname(file) + "/" + newname + ext;
+        fs.renameSync(file, new_file);
+        new_src.push(new_file);
+      }
+    });
+
+    files_src = new_src;
+    return new_src;
+
+  } else {
+    console.log("no files specified!");
+    return undefined;
+  }
+
+
+  console.log("files_src:", files_src);
+  console.log("search:", search);
+  console.log("replacement:", replacement);
+  console.log("copy:", copy);
 }
