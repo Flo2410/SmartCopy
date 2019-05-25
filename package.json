@@ -26,6 +26,9 @@
     "copyright": "Copyright © 2019 ${author}",
     "mac": {
       "category": "at.flo2410.smartcopy"
+    },
+    "directories" : {
+      "output": "out/${version}"
     }
   }
 }
